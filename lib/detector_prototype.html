@@ -1,0 +1,1573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>1_gluoncv_finetune.lib.detector_prototype API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>1_gluoncv_finetune.lib.detector_prototype</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">import os
+import sys
+import time
+from matplotlib import pyplot as plt
+import numpy as np
+import mxnet as mx
+from mxnet import autograd, gluon
+import gluoncv as gcv
+from gluoncv.utils import download, viz
+import pandas as pd
+import cv2
+from PIL import Image
+Image.LOAD_TRUNCATED_IMAGES = True
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
+
+def isnotebook():
+    try:
+        shell = get_ipython().__class__.__name__
+        if shell == &#39;ZMQInteractiveShell&#39;:
+            return True   # Jupyter notebook or qtconsole
+        elif shell == &#39;TerminalInteractiveShell&#39;:
+            return False  # Terminal running IPython
+        else:
+            return False  # Other type (?)
+    except NameError:
+        return False
+if(isnotebook()):
+    from tqdm.notebook import tqdm
+else:
+    from tqdm import tqdm as tqdm
+
+
+from gluoncv.data.batchify import Tuple, Stack, Pad
+from gluoncv.data.transforms.presets.ssd import SSDDefaultTrainTransform
+from gluoncv.data.transforms.presets.yolo import YOLO3DefaultTrainTransform
+
+class Detector():
+    &#39;&#39;&#39;
+    Class to train a detector
+
+    Args:
+        verbose (int): Set verbosity levels
+                        0 - Print Nothing
+                        1 - Print desired details
+    &#39;&#39;&#39;
+    def __init__(self, verbose=1):
+        self.system_dict = {};
+        self.system_dict[&#34;verbose&#34;] = verbose;
+        self.system_dict[&#34;local&#34;] = {};
+        self.system_dict[&#34;model_set_1&#34;] = [&#34;ssd_300_vgg16_atrous_coco&#34;, &#34;ssd_300_vgg16_atrous_voc&#34;];
+        self.system_dict[&#34;model_set_2&#34;] = [&#34;ssd_512_vgg16_atrous_coco&#34;, &#34;ssd_512_vgg16_atrous_voc&#34;];
+        self.system_dict[&#34;model_set_3&#34;] = [&#34;ssd_512_resnet50_v1_coco&#34;, &#34;ssd_512_resnet50_v1_voc&#34;];
+        self.system_dict[&#34;model_set_4&#34;] = [&#34;ssd_512_mobilenet1.0_voc&#34;, &#34;ssd_512_mobilenet1.0_coco&#34;];
+        self.system_dict[&#34;model_set_5&#34;] = [&#34;yolo3_darknet53_voc&#34;, &#34;yolo3_darknet53_coco&#34;];
+        self.system_dict[&#34;model_set_6&#34;] = [&#34;yolo3_mobilenet1.0_voc&#34;, &#34;yolo3_mobilenet1.0_coco&#34;];
+
+
+
+    def Dataset(self, root, img_dir, anno_file, batch_size=4, num_workers=0):
+        &#39;&#39;&#39;
+        User function: Set dataset parameters
+
+        Dataset Directory Structure
+
+            Parent_Directory (root)
+                    |   
+                    |-----------Images (img_dir)
+                    |              |
+                    |              |------------------img1.jpg
+                    |              |------------------img2.jpg
+                    |              |------------------.........(and so on)
+                    |
+                    |
+                    |-----------train_labels.csv (anno_file)
+
+        Annotation file format
+
+               | Id         | Labels                                 |
+               | img1.jpg   | x1 y1 x2 y2 label1 x1 y1 x2 y2 label2  |
+
+            Labels: xmin ymin xmax ymax label
+            xmin, ymin - top left corner of bounding box
+            xmax, ymax - bottom right corner of bounding box
+
+
+        Args:
+            root (str): Path to root_dir
+            img_dir (str): Path to image dir
+            anno_file (str): Labels files containing annotations in monk format
+            batch_size (int): Mini batch sampling size for training epochs
+            num_workers (int): Number of parallel processors for data loader 
+
+        Returns:
+            None
+        &#39;&#39;&#39;  
+        self.system_dict[&#34;root&#34;] = root;
+        self.system_dict[&#34;img_dir&#34;] = img_dir;
+        self.system_dict[&#34;anno_file&#34;] = anno_file;
+        self.system_dict[&#34;batch_size&#34;] = batch_size;
+        self.system_dict[&#34;num_workers&#34;] = num_workers;
+
+        df = pd.read_csv(self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;anno_file&#34;]);
+        columns = df.columns;
+
+
+        classes = [];
+        for i in tqdm(range(len(df))):
+            tmp = df[columns[1]][i].split(&#34; &#34;);
+            for j in range(len(tmp)//5):
+                label = tmp[j*5+4];
+                if(label not in classes):
+                    classes.append(label)
+                    
+        self.system_dict[&#34;classes&#34;] = sorted(classes)
+
+        with open(&#39;train.lst&#39;, &#39;w&#39;) as fw:    
+            for i in tqdm(range(len(df))):
+                img_name = df[columns[0]][i];
+                tmp = df[columns[1]][i].split(&#34; &#34;);
+                class_names = [];
+                bbox = [];
+                ids = [];
+                for j in range(len(tmp)//5):
+                    x1 = int(float(tmp[j*5+0]));
+                    y1 = int(float(tmp[j*5+1]));
+                    x2 = int(float(tmp[j*5+2]));
+                    y2 = int(float(tmp[j*5+3]));
+                    label = tmp[j*5+4]
+                    class_names.append(label);
+                    bbox.append([x1, y1, x2, y2]);
+                    ids.append(classes.index(label));
+
+                if(not os.path.isfile(self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;img_dir&#34;] + &#34;/&#34; + img_name)):
+                    continue;
+                
+                img = cv2.imread(self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;img_dir&#34;] + &#34;/&#34; + img_name); 
+                all_boxes = np.array(bbox);
+                all_ids = np.array(ids);
+                line = self.write_line(img_name, img.shape, all_boxes, all_ids, i)
+                fw.write(line)
+
+        cmd1 = &#34;cp &#34; + os.path.dirname(os.path.realpath(__file__)) + &#34;/im2rec.py &#34; + os.getcwd() + &#34;/&#34;;
+        os.system(cmd1);  
+
+        cmd2 = &#34;python im2rec.py train.lst &#34; + self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;img_dir&#34;] + &#34;/ --pass-through --pack-label&#34;
+        os.system(cmd2);
+
+        self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;] = gcv.data.RecordFileDetection(&#39;train.rec&#39;)
+
+
+
+    def write_line(self, img_path, im_shape, boxes, ids, idx):
+        &#39;&#39;&#39;
+        Internal function: Convert labels to required gluoncv format
+
+        Args:
+            img_path (str): Relative path to image
+            im_shape (tuple): Image shape in order - height, width, channel 
+            boxes (list): List of object bounding boxes in the image
+            ids (list): List of label ids for object bounding boxes
+            idx (idx): Unique image index 
+
+        Returns:
+            str: A String containing image index, headers, labels, and image path
+        &#39;&#39;&#39;
+
+        h, w, c = im_shape
+        # for header, we use minimal length 2, plus width and height
+        # with A: 4, B: 5, C: width, D: height
+        A = 4
+        B = 5
+        C = w
+        D = h
+        # concat id and bboxes
+        labels = np.hstack((ids.reshape(-1, 1), boxes)).astype(&#39;float&#39;)
+        # normalized bboxes (recommanded)
+        labels[:, (1, 3)] /= float(w)
+        labels[:, (2, 4)] /= float(h)
+        # flatten
+        labels = labels.flatten().tolist()
+        str_idx = [str(idx)]
+        str_header = [str(x) for x in [A, B, C, D]]
+        str_labels = [str(x) for x in labels]
+        str_path = [img_path]
+        line = &#39;\t&#39;.join(str_idx + str_header + str_labels + str_path) + &#39;\n&#39;
+        return line
+
+
+    def Model(self, model_name, use_pretrained=True, use_gpu=True, gpu_devices=[0]):
+        &#39;&#39;&#39;
+        User function: Set Model parameters
+
+            Available models
+                ssd_300_vgg16_atrous_coco
+                ssd_300_vgg16_atrous_voc
+                ssd_512_vgg16_atrous_coco
+                ssd_512_vgg16_atrous_voc
+                ssd_512_resnet50_v1_coco
+                ssd_512_resnet50_v1_voc
+                ssd_512_mobilenet1.0_voc
+                ssd_512_mobilenet1.0_coco
+                yolo3_darknet53_voc
+                yolo3_darknet53_coco
+                yolo3_mobilenet1.0_voc
+                yolo3_mobilenet1.0_coco
+
+        Args:
+            model_name (str): Select from available models
+            use_pretrained (bool): If True use pretrained weights else randomly initialized weights
+            use_gpu (bool): If True use GPU else run on CPU
+            gpu_devices (list): List of GPU device Ids 
+
+        Returns:
+            None
+        &#39;&#39;&#39;
+
+        self.system_dict[&#34;model_name&#34;] = model_name;
+        self.system_dict[&#34;use_pretrained&#34;] = use_pretrained;
+        if(self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_1&#34;]):
+            self.system_dict[&#34;local&#34;][&#34;net&#34;] = gcv.model_zoo.get_model(self.system_dict[&#34;model_name&#34;], 
+                pretrained=self.system_dict[&#34;use_pretrained&#34;]);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].reset_class(self.system_dict[&#34;classes&#34;])
+            self.system_dict[&#34;img_shape&#34;] = (300, 300); 
+
+            width, height = self.system_dict[&#34;img_shape&#34;][0], self.system_dict[&#34;img_shape&#34;][1]
+            with autograd.train_mode():
+                _, _, anchors = self.system_dict[&#34;local&#34;][&#34;net&#34;](mx.nd.zeros((1, 3, height, width)))
+
+            batchify_fn = Tuple(Stack(), Stack(), Stack())
+            self.system_dict[&#34;local&#34;][&#34;train_loader&#34;] = gluon.data.DataLoader(
+                self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;].transform(SSDDefaultTrainTransform(width, height, anchors)),
+                self.system_dict[&#34;batch_size&#34;], True, batchify_fn=batchify_fn, last_batch=&#39;rollover&#39;, 
+                num_workers=self.system_dict[&#34;num_workers&#34;])
+
+            self.set_device(use_gpu=use_gpu ,gpu_devices=gpu_devices);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params().reset_ctx(self.system_dict[&#34;local&#34;][&#34;ctx&#34;])
+
+        elif((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_2&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_3&#34;])
+            or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_4&#34;])):
+            self.system_dict[&#34;local&#34;][&#34;net&#34;] = gcv.model_zoo.get_model(self.system_dict[&#34;model_name&#34;], 
+                pretrained=self.system_dict[&#34;use_pretrained&#34;]);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].reset_class(self.system_dict[&#34;classes&#34;])
+            self.system_dict[&#34;img_shape&#34;] = (512, 512); 
+
+            width, height = self.system_dict[&#34;img_shape&#34;][0], self.system_dict[&#34;img_shape&#34;][1]
+            with autograd.train_mode():
+                _, _, anchors = self.system_dict[&#34;local&#34;][&#34;net&#34;](mx.nd.zeros((1, 3, height, width)))
+
+            batchify_fn = Tuple(Stack(), Stack(), Stack())
+            self.system_dict[&#34;local&#34;][&#34;train_loader&#34;] = gluon.data.DataLoader(
+                self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;].transform(SSDDefaultTrainTransform(width, height, anchors)),
+                self.system_dict[&#34;batch_size&#34;], True, batchify_fn=batchify_fn, last_batch=&#39;rollover&#39;, 
+                num_workers=self.system_dict[&#34;num_workers&#34;])
+
+            self.set_device(use_gpu=use_gpu, gpu_devices=gpu_devices);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params().reset_ctx(self.system_dict[&#34;local&#34;][&#34;ctx&#34;])
+
+        elif((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_5&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_6&#34;])) :
+            self.system_dict[&#34;local&#34;][&#34;net&#34;] = gcv.model_zoo.get_model(self.system_dict[&#34;model_name&#34;], 
+                pretrained=self.system_dict[&#34;use_pretrained&#34;]);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].reset_class(self.system_dict[&#34;classes&#34;])
+            self.system_dict[&#34;img_shape&#34;] = (416, 416); 
+
+            width, height = self.system_dict[&#34;img_shape&#34;][0], self.system_dict[&#34;img_shape&#34;][1]
+
+            train_transform = YOLO3DefaultTrainTransform(width, height, self.system_dict[&#34;local&#34;][&#34;net&#34;])
+            batchify_fn = Tuple(*([Stack() for _ in range(6)] + [Pad(axis=0, pad_val=-1) for _ in range(1)]))
+
+            self.system_dict[&#34;local&#34;][&#34;train_loader&#34;] = gluon.data.DataLoader(
+                self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;].transform(train_transform),
+                self.system_dict[&#34;batch_size&#34;], True, batchify_fn=batchify_fn, last_batch=&#39;rollover&#39;, 
+                num_workers=self.system_dict[&#34;num_workers&#34;])
+
+            self.set_device(use_gpu=use_gpu, gpu_devices=gpu_devices);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params().reset_ctx(self.system_dict[&#34;local&#34;][&#34;ctx&#34;])
+
+
+
+
+
+    def set_device(self, use_gpu=True ,gpu_devices=[0]):
+        &#39;&#39;&#39;
+        Internal function: Prepares GPU and CPU devices as per the model parameters set
+
+        Args:
+            use_gpu (bool): If True use GPU else run on CPU
+            gpu_devices (list): List of GPU device Ids
+
+        Returns:
+            None
+        &#39;&#39;&#39;
+        self.system_dict[&#34;use_gpu&#34;] = use_gpu;
+        
+        if self.system_dict[&#34;use_gpu&#34;]:
+            self.system_dict[&#34;gpu_devices&#34;] = gpu_devices;
+            self.system_dict[&#34;local&#34;][&#34;ctx&#34;]= [mx.gpu(int(i)) for i in self.system_dict[&#34;gpu_devices&#34;]]
+        else:
+            self.system_dict[&#34;local&#34;][&#34;ctx&#34;] = [mx.cpu()]
+
+
+    def Set_Learning_Rate(self, lr):
+        &#39;&#39;&#39;
+        User function: Set initial learning rate
+
+        Args:
+            lr (float): Base learning rate
+
+        Returns:
+            None
+        &#39;&#39;&#39;
+        self.system_dict[&#34;local&#34;][&#34;trainer&#34;] = gluon.Trainer(
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params(), &#39;sgd&#39;,
+            {&#39;learning_rate&#39;: lr, &#39;wd&#39;: 0.0005, &#39;momentum&#39;: 0.9})
+
+        if((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_1&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_2&#34;])
+            or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_3&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_4&#34;])):
+            self.system_dict[&#34;local&#34;][&#34;mbox_loss&#34;] = gcv.loss.SSDMultiBoxLoss()
+            self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;] = mx.metric.Loss(&#39;CrossEntropy&#39;)
+            self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;] = mx.metric.Loss(&#39;SmoothL1&#39;);
+
+        elif((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_5&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_6&#34;])):
+            self.system_dict[&#34;local&#34;][&#34;loss&#34;] = gcv.loss.YOLOV3Loss()
+            self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;] = mx.metric.Loss(&#39;ObjLoss&#39;)
+            self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;] = mx.metric.Loss(&#39;BoxCenterLoss&#39;)
+            self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;] = mx.metric.Loss(&#39;BoxScaleLoss&#39;)
+            self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;] = mx.metric.Loss(&#39;ClassLoss&#39;)
+
+
+    def Train(self, epochs, params_file):
+        &#39;&#39;&#39;
+        User function: Start training
+
+        Args:
+            epochs (int): Number of epochs to train for
+            params_file (str): Trained weights file name with extension as &#34;.params&#34;
+
+        Returns:
+            None
+        &#39;&#39;&#39;
+        self.system_dict[&#34;num_epochs&#34;] = epochs;
+        self.system_dict[&#34;params_file&#34;] = params_file;
+        self.system_dict[&#34;training_metrics&#34;] = [];
+        self.system_dict[&#34;training_time&#34;] = 0.0;
+
+        if((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_1&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_2&#34;])
+            or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_3&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_4&#34;])):
+            for epoch in range(self.system_dict[&#34;num_epochs&#34;]):
+                self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;].reset()
+                self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;].reset()
+                tic = time.time()
+                btic = time.time()
+                self.system_dict[&#34;local&#34;][&#34;net&#34;].hybridize(static_alloc=True, static_shape=True)
+                for i, batch in enumerate(self.system_dict[&#34;local&#34;][&#34;train_loader&#34;]):
+                    batch_size = batch[0].shape[0]
+                    data = gluon.utils.split_and_load(batch[0], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0)
+                    cls_targets = gluon.utils.split_and_load(batch[1], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0)
+                    box_targets = gluon.utils.split_and_load(batch[2], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0)
+                    with autograd.record():
+                        cls_preds = []
+                        box_preds = []
+                        for x in data:
+                            cls_pred, box_pred, _ = self.system_dict[&#34;local&#34;][&#34;net&#34;](x)
+                            cls_preds.append(cls_pred)
+                            box_preds.append(box_pred)
+                        sum_loss, cls_loss, box_loss = self.system_dict[&#34;local&#34;][&#34;mbox_loss&#34;](
+                            cls_preds, box_preds, cls_targets, box_targets)
+                        autograd.backward(sum_loss)
+                    # since we have already normalized the loss, we don&#39;t want to normalize
+                    # by batch-size anymore
+                    self.system_dict[&#34;local&#34;][&#34;trainer&#34;].step(batch_size)
+                    self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;].update(0, [l * batch_size for l in cls_loss])
+                    self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;].update(0, [l * batch_size for l in box_loss])
+                    name1, loss1 = self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;].get()
+                    name2, loss2 = self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;].get()
+                    if i % 20 == 0:
+                        print(&#39;[Epoch {}][Batch {}], Speed: {:.3f} samples/sec, {}={:.3f}, {}={:.3f}&#39;.format(
+                            epoch, i, batch_size/(time.time()-btic), name1, loss1, name2, loss2))
+                        tmp = {};
+                        tmp[&#34;epoch&#34;] = epoch;
+                        tmp[&#34;batch&#34;] = batch;
+                        tmp[&#34;name1&#34;] = loss1;
+                        tmp[&#34;name2&#34;] = loss2;
+                        self.system_dict[&#34;training_metrics&#34;].append(tmp);
+
+                    btic = time.time()
+                self.system_dict[&#34;training_time&#34;] += time.time() - tic;
+
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].save_parameters(self.system_dict[&#34;params_file&#34;])
+
+        if((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_5&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_6&#34;])):
+            for epoch in range(self.system_dict[&#34;num_epochs&#34;]):
+                tic = time.time()
+                btic = time.time()
+                self.system_dict[&#34;local&#34;][&#34;net&#34;].hybridize(static_alloc=True, static_shape=True)
+                self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;].reset()
+                self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;].reset()
+                self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;].reset()
+                self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;].reset()
+                
+                
+                for i, batch in enumerate(self.system_dict[&#34;local&#34;][&#34;train_loader&#34;]):
+                    batch_size = batch[0].shape[0]
+                    data = gluon.utils.split_and_load(batch[0], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0)
+                    # objectness, center_targets, scale_targets, weights, class_targets
+                    fixed_targets = [gluon.utils.split_and_load(batch[it], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0) for it in range(1, 6)]
+                    gt_boxes = gluon.utils.split_and_load(batch[6], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0)
+                    sum_losses = []
+                    obj_losses = []
+                    center_losses = []
+                    scale_losses = []
+                    cls_losses = []
+                    with autograd.record():
+                        for ix, x in enumerate(data):
+                            obj_loss, center_loss, scale_loss, cls_loss = self.system_dict[&#34;local&#34;][&#34;net&#34;](x, gt_boxes[ix], 
+                                *[ft[ix] for ft in fixed_targets])
+                            sum_losses.append(obj_loss + center_loss + scale_loss + cls_loss)
+                            obj_losses.append(obj_loss)
+                            center_losses.append(center_loss)
+                            scale_losses.append(scale_loss)
+                            cls_losses.append(cls_loss)
+                        autograd.backward(sum_losses)
+                    self.system_dict[&#34;local&#34;][&#34;trainer&#34;].step(batch_size)
+                    self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;].update(0, obj_losses)
+                    self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;].update(0, center_losses)
+                    self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;].update(0, scale_losses)
+                    self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;].update(0, cls_losses)
+
+                    if i % 20 == 0:
+                        name1, loss1 = self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;].get()
+                        name2, loss2 = self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;].get()
+                        name3, loss3 = self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;].get()
+                        name4, loss4 = self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;].get()
+                        tmp = {};
+                        tmp[&#34;epoch&#34;] = epoch;
+                        tmp[&#34;batch&#34;] = batch;
+                        tmp[&#34;name1&#34;] = loss1;
+                        tmp[&#34;name2&#34;] = loss2;
+                        tmp[&#34;name3&#34;] = loss3;
+                        tmp[&#34;name4&#34;] = loss4;
+                        self.system_dict[&#34;training_metrics&#34;].append(tmp);
+
+
+                        print(&#39;[Epoch {}][Batch {}], LR: {:.2E}, Speed: {:.3f} samples/sec, {}={:.3f}, {}={:.3f}, {}={:.3f}, {}={:.3f}&#39;.format(
+                    epoch, i, self.system_dict[&#34;local&#34;][&#34;trainer&#34;].learning_rate, batch_size/(time.time()-btic), name1, loss1, name2, loss2, name3, 
+                    loss3, name4, loss4))
+                    btic = time.time()
+                self.system_dict[&#34;training_time&#34;] += time.time() - tic;
+
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].save_parameters(self.system_dict[&#34;params_file&#34;])</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="1_gluoncv_finetune.lib.detector_prototype.isnotebook"><code class="name flex">
+<span>def <span class="ident">isnotebook</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def isnotebook():
+    try:
+        shell = get_ipython().__class__.__name__
+        if shell == &#39;ZMQInteractiveShell&#39;:
+            return True   # Jupyter notebook or qtconsole
+        elif shell == &#39;TerminalInteractiveShell&#39;:
+            return False  # Terminal running IPython
+        else:
+            return False  # Other type (?)
+    except NameError:
+        return False</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="1_gluoncv_finetune.lib.detector_prototype.Detector"><code class="flex name class">
+<span>class <span class="ident">Detector</span></span>
+<span>(</span><span>verbose=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class to train a detector</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>verbose</code></strong> :&ensp;<code>int</code></dt>
+<dd>Set verbosity levels
+0 - Print Nothing
+1 - Print desired details</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Detector():
+    &#39;&#39;&#39;
+    Class to train a detector
+
+    Args:
+        verbose (int): Set verbosity levels
+                        0 - Print Nothing
+                        1 - Print desired details
+    &#39;&#39;&#39;
+    def __init__(self, verbose=1):
+        self.system_dict = {};
+        self.system_dict[&#34;verbose&#34;] = verbose;
+        self.system_dict[&#34;local&#34;] = {};
+        self.system_dict[&#34;model_set_1&#34;] = [&#34;ssd_300_vgg16_atrous_coco&#34;, &#34;ssd_300_vgg16_atrous_voc&#34;];
+        self.system_dict[&#34;model_set_2&#34;] = [&#34;ssd_512_vgg16_atrous_coco&#34;, &#34;ssd_512_vgg16_atrous_voc&#34;];
+        self.system_dict[&#34;model_set_3&#34;] = [&#34;ssd_512_resnet50_v1_coco&#34;, &#34;ssd_512_resnet50_v1_voc&#34;];
+        self.system_dict[&#34;model_set_4&#34;] = [&#34;ssd_512_mobilenet1.0_voc&#34;, &#34;ssd_512_mobilenet1.0_coco&#34;];
+        self.system_dict[&#34;model_set_5&#34;] = [&#34;yolo3_darknet53_voc&#34;, &#34;yolo3_darknet53_coco&#34;];
+        self.system_dict[&#34;model_set_6&#34;] = [&#34;yolo3_mobilenet1.0_voc&#34;, &#34;yolo3_mobilenet1.0_coco&#34;];
+
+
+
+    def Dataset(self, root, img_dir, anno_file, batch_size=4, num_workers=0):
+        &#39;&#39;&#39;
+        User function: Set dataset parameters
+
+        Dataset Directory Structure
+
+            Parent_Directory (root)
+                    |   
+                    |-----------Images (img_dir)
+                    |              |
+                    |              |------------------img1.jpg
+                    |              |------------------img2.jpg
+                    |              |------------------.........(and so on)
+                    |
+                    |
+                    |-----------train_labels.csv (anno_file)
+
+        Annotation file format
+
+               | Id         | Labels                                 |
+               | img1.jpg   | x1 y1 x2 y2 label1 x1 y1 x2 y2 label2  |
+
+            Labels: xmin ymin xmax ymax label
+            xmin, ymin - top left corner of bounding box
+            xmax, ymax - bottom right corner of bounding box
+
+
+        Args:
+            root (str): Path to root_dir
+            img_dir (str): Path to image dir
+            anno_file (str): Labels files containing annotations in monk format
+            batch_size (int): Mini batch sampling size for training epochs
+            num_workers (int): Number of parallel processors for data loader 
+
+        Returns:
+            None
+        &#39;&#39;&#39;  
+        self.system_dict[&#34;root&#34;] = root;
+        self.system_dict[&#34;img_dir&#34;] = img_dir;
+        self.system_dict[&#34;anno_file&#34;] = anno_file;
+        self.system_dict[&#34;batch_size&#34;] = batch_size;
+        self.system_dict[&#34;num_workers&#34;] = num_workers;
+
+        df = pd.read_csv(self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;anno_file&#34;]);
+        columns = df.columns;
+
+
+        classes = [];
+        for i in tqdm(range(len(df))):
+            tmp = df[columns[1]][i].split(&#34; &#34;);
+            for j in range(len(tmp)//5):
+                label = tmp[j*5+4];
+                if(label not in classes):
+                    classes.append(label)
+                    
+        self.system_dict[&#34;classes&#34;] = sorted(classes)
+
+        with open(&#39;train.lst&#39;, &#39;w&#39;) as fw:    
+            for i in tqdm(range(len(df))):
+                img_name = df[columns[0]][i];
+                tmp = df[columns[1]][i].split(&#34; &#34;);
+                class_names = [];
+                bbox = [];
+                ids = [];
+                for j in range(len(tmp)//5):
+                    x1 = int(float(tmp[j*5+0]));
+                    y1 = int(float(tmp[j*5+1]));
+                    x2 = int(float(tmp[j*5+2]));
+                    y2 = int(float(tmp[j*5+3]));
+                    label = tmp[j*5+4]
+                    class_names.append(label);
+                    bbox.append([x1, y1, x2, y2]);
+                    ids.append(classes.index(label));
+
+                if(not os.path.isfile(self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;img_dir&#34;] + &#34;/&#34; + img_name)):
+                    continue;
+                
+                img = cv2.imread(self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;img_dir&#34;] + &#34;/&#34; + img_name); 
+                all_boxes = np.array(bbox);
+                all_ids = np.array(ids);
+                line = self.write_line(img_name, img.shape, all_boxes, all_ids, i)
+                fw.write(line)
+
+        cmd1 = &#34;cp &#34; + os.path.dirname(os.path.realpath(__file__)) + &#34;/im2rec.py &#34; + os.getcwd() + &#34;/&#34;;
+        os.system(cmd1);  
+
+        cmd2 = &#34;python im2rec.py train.lst &#34; + self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;img_dir&#34;] + &#34;/ --pass-through --pack-label&#34;
+        os.system(cmd2);
+
+        self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;] = gcv.data.RecordFileDetection(&#39;train.rec&#39;)
+
+
+
+    def write_line(self, img_path, im_shape, boxes, ids, idx):
+        &#39;&#39;&#39;
+        Internal function: Convert labels to required gluoncv format
+
+        Args:
+            img_path (str): Relative path to image
+            im_shape (tuple): Image shape in order - height, width, channel 
+            boxes (list): List of object bounding boxes in the image
+            ids (list): List of label ids for object bounding boxes
+            idx (idx): Unique image index 
+
+        Returns:
+            str: A String containing image index, headers, labels, and image path
+        &#39;&#39;&#39;
+
+        h, w, c = im_shape
+        # for header, we use minimal length 2, plus width and height
+        # with A: 4, B: 5, C: width, D: height
+        A = 4
+        B = 5
+        C = w
+        D = h
+        # concat id and bboxes
+        labels = np.hstack((ids.reshape(-1, 1), boxes)).astype(&#39;float&#39;)
+        # normalized bboxes (recommanded)
+        labels[:, (1, 3)] /= float(w)
+        labels[:, (2, 4)] /= float(h)
+        # flatten
+        labels = labels.flatten().tolist()
+        str_idx = [str(idx)]
+        str_header = [str(x) for x in [A, B, C, D]]
+        str_labels = [str(x) for x in labels]
+        str_path = [img_path]
+        line = &#39;\t&#39;.join(str_idx + str_header + str_labels + str_path) + &#39;\n&#39;
+        return line
+
+
+    def Model(self, model_name, use_pretrained=True, use_gpu=True, gpu_devices=[0]):
+        &#39;&#39;&#39;
+        User function: Set Model parameters
+
+            Available models
+                ssd_300_vgg16_atrous_coco
+                ssd_300_vgg16_atrous_voc
+                ssd_512_vgg16_atrous_coco
+                ssd_512_vgg16_atrous_voc
+                ssd_512_resnet50_v1_coco
+                ssd_512_resnet50_v1_voc
+                ssd_512_mobilenet1.0_voc
+                ssd_512_mobilenet1.0_coco
+                yolo3_darknet53_voc
+                yolo3_darknet53_coco
+                yolo3_mobilenet1.0_voc
+                yolo3_mobilenet1.0_coco
+
+        Args:
+            model_name (str): Select from available models
+            use_pretrained (bool): If True use pretrained weights else randomly initialized weights
+            use_gpu (bool): If True use GPU else run on CPU
+            gpu_devices (list): List of GPU device Ids 
+
+        Returns:
+            None
+        &#39;&#39;&#39;
+
+        self.system_dict[&#34;model_name&#34;] = model_name;
+        self.system_dict[&#34;use_pretrained&#34;] = use_pretrained;
+        if(self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_1&#34;]):
+            self.system_dict[&#34;local&#34;][&#34;net&#34;] = gcv.model_zoo.get_model(self.system_dict[&#34;model_name&#34;], 
+                pretrained=self.system_dict[&#34;use_pretrained&#34;]);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].reset_class(self.system_dict[&#34;classes&#34;])
+            self.system_dict[&#34;img_shape&#34;] = (300, 300); 
+
+            width, height = self.system_dict[&#34;img_shape&#34;][0], self.system_dict[&#34;img_shape&#34;][1]
+            with autograd.train_mode():
+                _, _, anchors = self.system_dict[&#34;local&#34;][&#34;net&#34;](mx.nd.zeros((1, 3, height, width)))
+
+            batchify_fn = Tuple(Stack(), Stack(), Stack())
+            self.system_dict[&#34;local&#34;][&#34;train_loader&#34;] = gluon.data.DataLoader(
+                self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;].transform(SSDDefaultTrainTransform(width, height, anchors)),
+                self.system_dict[&#34;batch_size&#34;], True, batchify_fn=batchify_fn, last_batch=&#39;rollover&#39;, 
+                num_workers=self.system_dict[&#34;num_workers&#34;])
+
+            self.set_device(use_gpu=use_gpu ,gpu_devices=gpu_devices);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params().reset_ctx(self.system_dict[&#34;local&#34;][&#34;ctx&#34;])
+
+        elif((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_2&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_3&#34;])
+            or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_4&#34;])):
+            self.system_dict[&#34;local&#34;][&#34;net&#34;] = gcv.model_zoo.get_model(self.system_dict[&#34;model_name&#34;], 
+                pretrained=self.system_dict[&#34;use_pretrained&#34;]);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].reset_class(self.system_dict[&#34;classes&#34;])
+            self.system_dict[&#34;img_shape&#34;] = (512, 512); 
+
+            width, height = self.system_dict[&#34;img_shape&#34;][0], self.system_dict[&#34;img_shape&#34;][1]
+            with autograd.train_mode():
+                _, _, anchors = self.system_dict[&#34;local&#34;][&#34;net&#34;](mx.nd.zeros((1, 3, height, width)))
+
+            batchify_fn = Tuple(Stack(), Stack(), Stack())
+            self.system_dict[&#34;local&#34;][&#34;train_loader&#34;] = gluon.data.DataLoader(
+                self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;].transform(SSDDefaultTrainTransform(width, height, anchors)),
+                self.system_dict[&#34;batch_size&#34;], True, batchify_fn=batchify_fn, last_batch=&#39;rollover&#39;, 
+                num_workers=self.system_dict[&#34;num_workers&#34;])
+
+            self.set_device(use_gpu=use_gpu, gpu_devices=gpu_devices);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params().reset_ctx(self.system_dict[&#34;local&#34;][&#34;ctx&#34;])
+
+        elif((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_5&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_6&#34;])) :
+            self.system_dict[&#34;local&#34;][&#34;net&#34;] = gcv.model_zoo.get_model(self.system_dict[&#34;model_name&#34;], 
+                pretrained=self.system_dict[&#34;use_pretrained&#34;]);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].reset_class(self.system_dict[&#34;classes&#34;])
+            self.system_dict[&#34;img_shape&#34;] = (416, 416); 
+
+            width, height = self.system_dict[&#34;img_shape&#34;][0], self.system_dict[&#34;img_shape&#34;][1]
+
+            train_transform = YOLO3DefaultTrainTransform(width, height, self.system_dict[&#34;local&#34;][&#34;net&#34;])
+            batchify_fn = Tuple(*([Stack() for _ in range(6)] + [Pad(axis=0, pad_val=-1) for _ in range(1)]))
+
+            self.system_dict[&#34;local&#34;][&#34;train_loader&#34;] = gluon.data.DataLoader(
+                self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;].transform(train_transform),
+                self.system_dict[&#34;batch_size&#34;], True, batchify_fn=batchify_fn, last_batch=&#39;rollover&#39;, 
+                num_workers=self.system_dict[&#34;num_workers&#34;])
+
+            self.set_device(use_gpu=use_gpu, gpu_devices=gpu_devices);
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params().reset_ctx(self.system_dict[&#34;local&#34;][&#34;ctx&#34;])
+
+
+
+
+
+    def set_device(self, use_gpu=True ,gpu_devices=[0]):
+        &#39;&#39;&#39;
+        Internal function: Prepares GPU and CPU devices as per the model parameters set
+
+        Args:
+            use_gpu (bool): If True use GPU else run on CPU
+            gpu_devices (list): List of GPU device Ids
+
+        Returns:
+            None
+        &#39;&#39;&#39;
+        self.system_dict[&#34;use_gpu&#34;] = use_gpu;
+        
+        if self.system_dict[&#34;use_gpu&#34;]:
+            self.system_dict[&#34;gpu_devices&#34;] = gpu_devices;
+            self.system_dict[&#34;local&#34;][&#34;ctx&#34;]= [mx.gpu(int(i)) for i in self.system_dict[&#34;gpu_devices&#34;]]
+        else:
+            self.system_dict[&#34;local&#34;][&#34;ctx&#34;] = [mx.cpu()]
+
+
+    def Set_Learning_Rate(self, lr):
+        &#39;&#39;&#39;
+        User function: Set initial learning rate
+
+        Args:
+            lr (float): Base learning rate
+
+        Returns:
+            None
+        &#39;&#39;&#39;
+        self.system_dict[&#34;local&#34;][&#34;trainer&#34;] = gluon.Trainer(
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params(), &#39;sgd&#39;,
+            {&#39;learning_rate&#39;: lr, &#39;wd&#39;: 0.0005, &#39;momentum&#39;: 0.9})
+
+        if((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_1&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_2&#34;])
+            or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_3&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_4&#34;])):
+            self.system_dict[&#34;local&#34;][&#34;mbox_loss&#34;] = gcv.loss.SSDMultiBoxLoss()
+            self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;] = mx.metric.Loss(&#39;CrossEntropy&#39;)
+            self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;] = mx.metric.Loss(&#39;SmoothL1&#39;);
+
+        elif((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_5&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_6&#34;])):
+            self.system_dict[&#34;local&#34;][&#34;loss&#34;] = gcv.loss.YOLOV3Loss()
+            self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;] = mx.metric.Loss(&#39;ObjLoss&#39;)
+            self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;] = mx.metric.Loss(&#39;BoxCenterLoss&#39;)
+            self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;] = mx.metric.Loss(&#39;BoxScaleLoss&#39;)
+            self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;] = mx.metric.Loss(&#39;ClassLoss&#39;)
+
+
+    def Train(self, epochs, params_file):
+        &#39;&#39;&#39;
+        User function: Start training
+
+        Args:
+            epochs (int): Number of epochs to train for
+            params_file (str): Trained weights file name with extension as &#34;.params&#34;
+
+        Returns:
+            None
+        &#39;&#39;&#39;
+        self.system_dict[&#34;num_epochs&#34;] = epochs;
+        self.system_dict[&#34;params_file&#34;] = params_file;
+        self.system_dict[&#34;training_metrics&#34;] = [];
+        self.system_dict[&#34;training_time&#34;] = 0.0;
+
+        if((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_1&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_2&#34;])
+            or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_3&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_4&#34;])):
+            for epoch in range(self.system_dict[&#34;num_epochs&#34;]):
+                self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;].reset()
+                self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;].reset()
+                tic = time.time()
+                btic = time.time()
+                self.system_dict[&#34;local&#34;][&#34;net&#34;].hybridize(static_alloc=True, static_shape=True)
+                for i, batch in enumerate(self.system_dict[&#34;local&#34;][&#34;train_loader&#34;]):
+                    batch_size = batch[0].shape[0]
+                    data = gluon.utils.split_and_load(batch[0], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0)
+                    cls_targets = gluon.utils.split_and_load(batch[1], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0)
+                    box_targets = gluon.utils.split_and_load(batch[2], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0)
+                    with autograd.record():
+                        cls_preds = []
+                        box_preds = []
+                        for x in data:
+                            cls_pred, box_pred, _ = self.system_dict[&#34;local&#34;][&#34;net&#34;](x)
+                            cls_preds.append(cls_pred)
+                            box_preds.append(box_pred)
+                        sum_loss, cls_loss, box_loss = self.system_dict[&#34;local&#34;][&#34;mbox_loss&#34;](
+                            cls_preds, box_preds, cls_targets, box_targets)
+                        autograd.backward(sum_loss)
+                    # since we have already normalized the loss, we don&#39;t want to normalize
+                    # by batch-size anymore
+                    self.system_dict[&#34;local&#34;][&#34;trainer&#34;].step(batch_size)
+                    self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;].update(0, [l * batch_size for l in cls_loss])
+                    self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;].update(0, [l * batch_size for l in box_loss])
+                    name1, loss1 = self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;].get()
+                    name2, loss2 = self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;].get()
+                    if i % 20 == 0:
+                        print(&#39;[Epoch {}][Batch {}], Speed: {:.3f} samples/sec, {}={:.3f}, {}={:.3f}&#39;.format(
+                            epoch, i, batch_size/(time.time()-btic), name1, loss1, name2, loss2))
+                        tmp = {};
+                        tmp[&#34;epoch&#34;] = epoch;
+                        tmp[&#34;batch&#34;] = batch;
+                        tmp[&#34;name1&#34;] = loss1;
+                        tmp[&#34;name2&#34;] = loss2;
+                        self.system_dict[&#34;training_metrics&#34;].append(tmp);
+
+                    btic = time.time()
+                self.system_dict[&#34;training_time&#34;] += time.time() - tic;
+
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].save_parameters(self.system_dict[&#34;params_file&#34;])
+
+        if((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_5&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_6&#34;])):
+            for epoch in range(self.system_dict[&#34;num_epochs&#34;]):
+                tic = time.time()
+                btic = time.time()
+                self.system_dict[&#34;local&#34;][&#34;net&#34;].hybridize(static_alloc=True, static_shape=True)
+                self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;].reset()
+                self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;].reset()
+                self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;].reset()
+                self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;].reset()
+                
+                
+                for i, batch in enumerate(self.system_dict[&#34;local&#34;][&#34;train_loader&#34;]):
+                    batch_size = batch[0].shape[0]
+                    data = gluon.utils.split_and_load(batch[0], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0)
+                    # objectness, center_targets, scale_targets, weights, class_targets
+                    fixed_targets = [gluon.utils.split_and_load(batch[it], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0) for it in range(1, 6)]
+                    gt_boxes = gluon.utils.split_and_load(batch[6], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                        batch_axis=0)
+                    sum_losses = []
+                    obj_losses = []
+                    center_losses = []
+                    scale_losses = []
+                    cls_losses = []
+                    with autograd.record():
+                        for ix, x in enumerate(data):
+                            obj_loss, center_loss, scale_loss, cls_loss = self.system_dict[&#34;local&#34;][&#34;net&#34;](x, gt_boxes[ix], 
+                                *[ft[ix] for ft in fixed_targets])
+                            sum_losses.append(obj_loss + center_loss + scale_loss + cls_loss)
+                            obj_losses.append(obj_loss)
+                            center_losses.append(center_loss)
+                            scale_losses.append(scale_loss)
+                            cls_losses.append(cls_loss)
+                        autograd.backward(sum_losses)
+                    self.system_dict[&#34;local&#34;][&#34;trainer&#34;].step(batch_size)
+                    self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;].update(0, obj_losses)
+                    self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;].update(0, center_losses)
+                    self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;].update(0, scale_losses)
+                    self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;].update(0, cls_losses)
+
+                    if i % 20 == 0:
+                        name1, loss1 = self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;].get()
+                        name2, loss2 = self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;].get()
+                        name3, loss3 = self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;].get()
+                        name4, loss4 = self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;].get()
+                        tmp = {};
+                        tmp[&#34;epoch&#34;] = epoch;
+                        tmp[&#34;batch&#34;] = batch;
+                        tmp[&#34;name1&#34;] = loss1;
+                        tmp[&#34;name2&#34;] = loss2;
+                        tmp[&#34;name3&#34;] = loss3;
+                        tmp[&#34;name4&#34;] = loss4;
+                        self.system_dict[&#34;training_metrics&#34;].append(tmp);
+
+
+                        print(&#39;[Epoch {}][Batch {}], LR: {:.2E}, Speed: {:.3f} samples/sec, {}={:.3f}, {}={:.3f}, {}={:.3f}, {}={:.3f}&#39;.format(
+                    epoch, i, self.system_dict[&#34;local&#34;][&#34;trainer&#34;].learning_rate, batch_size/(time.time()-btic), name1, loss1, name2, loss2, name3, 
+                    loss3, name4, loss4))
+                    btic = time.time()
+                self.system_dict[&#34;training_time&#34;] += time.time() - tic;
+
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].save_parameters(self.system_dict[&#34;params_file&#34;])</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="1_gluoncv_finetune.lib.detector_prototype.Detector.Dataset"><code class="name flex">
+<span>def <span class="ident">Dataset</span></span>(<span>self, root, img_dir, anno_file, batch_size=4, num_workers=0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>User function: Set dataset parameters</p>
+<p>Dataset Directory Structure</p>
+<pre><code>Parent_Directory (root)
+        |   
+        |-----------Images (img_dir)
+        |              |
+        |              |------------------img1.jpg
+        |              |------------------img2.jpg
+        |              |------------------.........(and so on)
+        |
+        |
+        |-----------train_labels.csv (anno_file)
+</code></pre>
+<p>Annotation file format</p>
+<pre><code>   | Id         | Labels                                 |
+   | img1.jpg   | x1 y1 x2 y2 label1 x1 y1 x2 y2 label2  |
+
+Labels: xmin ymin xmax ymax label
+xmin, ymin - top left corner of bounding box
+xmax, ymax - bottom right corner of bounding box
+</code></pre>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>root</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to root_dir</dd>
+<dt><strong><code>img_dir</code></strong> :&ensp;<code>str</code></dt>
+<dd>Path to image dir</dd>
+<dt><strong><code>anno_file</code></strong> :&ensp;<code>str</code></dt>
+<dd>Labels files containing annotations in monk format</dd>
+<dt><strong><code>batch_size</code></strong> :&ensp;<code>int</code></dt>
+<dd>Mini batch sampling size for training epochs</dd>
+<dt><strong><code>num_workers</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of parallel processors for data loader </dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Dataset(self, root, img_dir, anno_file, batch_size=4, num_workers=0):
+    &#39;&#39;&#39;
+    User function: Set dataset parameters
+
+    Dataset Directory Structure
+
+        Parent_Directory (root)
+                |   
+                |-----------Images (img_dir)
+                |              |
+                |              |------------------img1.jpg
+                |              |------------------img2.jpg
+                |              |------------------.........(and so on)
+                |
+                |
+                |-----------train_labels.csv (anno_file)
+
+    Annotation file format
+
+           | Id         | Labels                                 |
+           | img1.jpg   | x1 y1 x2 y2 label1 x1 y1 x2 y2 label2  |
+
+        Labels: xmin ymin xmax ymax label
+        xmin, ymin - top left corner of bounding box
+        xmax, ymax - bottom right corner of bounding box
+
+
+    Args:
+        root (str): Path to root_dir
+        img_dir (str): Path to image dir
+        anno_file (str): Labels files containing annotations in monk format
+        batch_size (int): Mini batch sampling size for training epochs
+        num_workers (int): Number of parallel processors for data loader 
+
+    Returns:
+        None
+    &#39;&#39;&#39;  
+    self.system_dict[&#34;root&#34;] = root;
+    self.system_dict[&#34;img_dir&#34;] = img_dir;
+    self.system_dict[&#34;anno_file&#34;] = anno_file;
+    self.system_dict[&#34;batch_size&#34;] = batch_size;
+    self.system_dict[&#34;num_workers&#34;] = num_workers;
+
+    df = pd.read_csv(self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;anno_file&#34;]);
+    columns = df.columns;
+
+
+    classes = [];
+    for i in tqdm(range(len(df))):
+        tmp = df[columns[1]][i].split(&#34; &#34;);
+        for j in range(len(tmp)//5):
+            label = tmp[j*5+4];
+            if(label not in classes):
+                classes.append(label)
+                
+    self.system_dict[&#34;classes&#34;] = sorted(classes)
+
+    with open(&#39;train.lst&#39;, &#39;w&#39;) as fw:    
+        for i in tqdm(range(len(df))):
+            img_name = df[columns[0]][i];
+            tmp = df[columns[1]][i].split(&#34; &#34;);
+            class_names = [];
+            bbox = [];
+            ids = [];
+            for j in range(len(tmp)//5):
+                x1 = int(float(tmp[j*5+0]));
+                y1 = int(float(tmp[j*5+1]));
+                x2 = int(float(tmp[j*5+2]));
+                y2 = int(float(tmp[j*5+3]));
+                label = tmp[j*5+4]
+                class_names.append(label);
+                bbox.append([x1, y1, x2, y2]);
+                ids.append(classes.index(label));
+
+            if(not os.path.isfile(self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;img_dir&#34;] + &#34;/&#34; + img_name)):
+                continue;
+            
+            img = cv2.imread(self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;img_dir&#34;] + &#34;/&#34; + img_name); 
+            all_boxes = np.array(bbox);
+            all_ids = np.array(ids);
+            line = self.write_line(img_name, img.shape, all_boxes, all_ids, i)
+            fw.write(line)
+
+    cmd1 = &#34;cp &#34; + os.path.dirname(os.path.realpath(__file__)) + &#34;/im2rec.py &#34; + os.getcwd() + &#34;/&#34;;
+    os.system(cmd1);  
+
+    cmd2 = &#34;python im2rec.py train.lst &#34; + self.system_dict[&#34;root&#34;] + &#34;/&#34; + self.system_dict[&#34;img_dir&#34;] + &#34;/ --pass-through --pack-label&#34;
+    os.system(cmd2);
+
+    self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;] = gcv.data.RecordFileDetection(&#39;train.rec&#39;)</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.detector_prototype.Detector.Model"><code class="name flex">
+<span>def <span class="ident">Model</span></span>(<span>self, model_name, use_pretrained=True, use_gpu=True, gpu_devices=[0])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>User function: Set Model parameters</p>
+<pre><code>Available models
+    ssd_300_vgg16_atrous_coco
+    ssd_300_vgg16_atrous_voc
+    ssd_512_vgg16_atrous_coco
+    ssd_512_vgg16_atrous_voc
+    ssd_512_resnet50_v1_coco
+    ssd_512_resnet50_v1_voc
+    ssd_512_mobilenet1.0_voc
+    ssd_512_mobilenet1.0_coco
+    yolo3_darknet53_voc
+    yolo3_darknet53_coco
+    yolo3_mobilenet1.0_voc
+    yolo3_mobilenet1.0_coco
+</code></pre>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>model_name</code></strong> :&ensp;<code>str</code></dt>
+<dd>Select from available models</dd>
+<dt><strong><code>use_pretrained</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If True use pretrained weights else randomly initialized weights</dd>
+<dt><strong><code>use_gpu</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If True use GPU else run on CPU</dd>
+<dt><strong><code>gpu_devices</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of GPU device Ids </dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Model(self, model_name, use_pretrained=True, use_gpu=True, gpu_devices=[0]):
+    &#39;&#39;&#39;
+    User function: Set Model parameters
+
+        Available models
+            ssd_300_vgg16_atrous_coco
+            ssd_300_vgg16_atrous_voc
+            ssd_512_vgg16_atrous_coco
+            ssd_512_vgg16_atrous_voc
+            ssd_512_resnet50_v1_coco
+            ssd_512_resnet50_v1_voc
+            ssd_512_mobilenet1.0_voc
+            ssd_512_mobilenet1.0_coco
+            yolo3_darknet53_voc
+            yolo3_darknet53_coco
+            yolo3_mobilenet1.0_voc
+            yolo3_mobilenet1.0_coco
+
+    Args:
+        model_name (str): Select from available models
+        use_pretrained (bool): If True use pretrained weights else randomly initialized weights
+        use_gpu (bool): If True use GPU else run on CPU
+        gpu_devices (list): List of GPU device Ids 
+
+    Returns:
+        None
+    &#39;&#39;&#39;
+
+    self.system_dict[&#34;model_name&#34;] = model_name;
+    self.system_dict[&#34;use_pretrained&#34;] = use_pretrained;
+    if(self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_1&#34;]):
+        self.system_dict[&#34;local&#34;][&#34;net&#34;] = gcv.model_zoo.get_model(self.system_dict[&#34;model_name&#34;], 
+            pretrained=self.system_dict[&#34;use_pretrained&#34;]);
+        self.system_dict[&#34;local&#34;][&#34;net&#34;].reset_class(self.system_dict[&#34;classes&#34;])
+        self.system_dict[&#34;img_shape&#34;] = (300, 300); 
+
+        width, height = self.system_dict[&#34;img_shape&#34;][0], self.system_dict[&#34;img_shape&#34;][1]
+        with autograd.train_mode():
+            _, _, anchors = self.system_dict[&#34;local&#34;][&#34;net&#34;](mx.nd.zeros((1, 3, height, width)))
+
+        batchify_fn = Tuple(Stack(), Stack(), Stack())
+        self.system_dict[&#34;local&#34;][&#34;train_loader&#34;] = gluon.data.DataLoader(
+            self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;].transform(SSDDefaultTrainTransform(width, height, anchors)),
+            self.system_dict[&#34;batch_size&#34;], True, batchify_fn=batchify_fn, last_batch=&#39;rollover&#39;, 
+            num_workers=self.system_dict[&#34;num_workers&#34;])
+
+        self.set_device(use_gpu=use_gpu ,gpu_devices=gpu_devices);
+        self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params().reset_ctx(self.system_dict[&#34;local&#34;][&#34;ctx&#34;])
+
+    elif((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_2&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_3&#34;])
+        or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_4&#34;])):
+        self.system_dict[&#34;local&#34;][&#34;net&#34;] = gcv.model_zoo.get_model(self.system_dict[&#34;model_name&#34;], 
+            pretrained=self.system_dict[&#34;use_pretrained&#34;]);
+        self.system_dict[&#34;local&#34;][&#34;net&#34;].reset_class(self.system_dict[&#34;classes&#34;])
+        self.system_dict[&#34;img_shape&#34;] = (512, 512); 
+
+        width, height = self.system_dict[&#34;img_shape&#34;][0], self.system_dict[&#34;img_shape&#34;][1]
+        with autograd.train_mode():
+            _, _, anchors = self.system_dict[&#34;local&#34;][&#34;net&#34;](mx.nd.zeros((1, 3, height, width)))
+
+        batchify_fn = Tuple(Stack(), Stack(), Stack())
+        self.system_dict[&#34;local&#34;][&#34;train_loader&#34;] = gluon.data.DataLoader(
+            self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;].transform(SSDDefaultTrainTransform(width, height, anchors)),
+            self.system_dict[&#34;batch_size&#34;], True, batchify_fn=batchify_fn, last_batch=&#39;rollover&#39;, 
+            num_workers=self.system_dict[&#34;num_workers&#34;])
+
+        self.set_device(use_gpu=use_gpu, gpu_devices=gpu_devices);
+        self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params().reset_ctx(self.system_dict[&#34;local&#34;][&#34;ctx&#34;])
+
+    elif((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_5&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_6&#34;])) :
+        self.system_dict[&#34;local&#34;][&#34;net&#34;] = gcv.model_zoo.get_model(self.system_dict[&#34;model_name&#34;], 
+            pretrained=self.system_dict[&#34;use_pretrained&#34;]);
+        self.system_dict[&#34;local&#34;][&#34;net&#34;].reset_class(self.system_dict[&#34;classes&#34;])
+        self.system_dict[&#34;img_shape&#34;] = (416, 416); 
+
+        width, height = self.system_dict[&#34;img_shape&#34;][0], self.system_dict[&#34;img_shape&#34;][1]
+
+        train_transform = YOLO3DefaultTrainTransform(width, height, self.system_dict[&#34;local&#34;][&#34;net&#34;])
+        batchify_fn = Tuple(*([Stack() for _ in range(6)] + [Pad(axis=0, pad_val=-1) for _ in range(1)]))
+
+        self.system_dict[&#34;local&#34;][&#34;train_loader&#34;] = gluon.data.DataLoader(
+            self.system_dict[&#34;local&#34;][&#34;train_dataset&#34;].transform(train_transform),
+            self.system_dict[&#34;batch_size&#34;], True, batchify_fn=batchify_fn, last_batch=&#39;rollover&#39;, 
+            num_workers=self.system_dict[&#34;num_workers&#34;])
+
+        self.set_device(use_gpu=use_gpu, gpu_devices=gpu_devices);
+        self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params().reset_ctx(self.system_dict[&#34;local&#34;][&#34;ctx&#34;])</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.detector_prototype.Detector.Set_Learning_Rate"><code class="name flex">
+<span>def <span class="ident">Set_Learning_Rate</span></span>(<span>self, lr)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>User function: Set initial learning rate</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>lr</code></strong> :&ensp;<code>float</code></dt>
+<dd>Base learning rate</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Set_Learning_Rate(self, lr):
+    &#39;&#39;&#39;
+    User function: Set initial learning rate
+
+    Args:
+        lr (float): Base learning rate
+
+    Returns:
+        None
+    &#39;&#39;&#39;
+    self.system_dict[&#34;local&#34;][&#34;trainer&#34;] = gluon.Trainer(
+        self.system_dict[&#34;local&#34;][&#34;net&#34;].collect_params(), &#39;sgd&#39;,
+        {&#39;learning_rate&#39;: lr, &#39;wd&#39;: 0.0005, &#39;momentum&#39;: 0.9})
+
+    if((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_1&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_2&#34;])
+        or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_3&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_4&#34;])):
+        self.system_dict[&#34;local&#34;][&#34;mbox_loss&#34;] = gcv.loss.SSDMultiBoxLoss()
+        self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;] = mx.metric.Loss(&#39;CrossEntropy&#39;)
+        self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;] = mx.metric.Loss(&#39;SmoothL1&#39;);
+
+    elif((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_5&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_6&#34;])):
+        self.system_dict[&#34;local&#34;][&#34;loss&#34;] = gcv.loss.YOLOV3Loss()
+        self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;] = mx.metric.Loss(&#39;ObjLoss&#39;)
+        self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;] = mx.metric.Loss(&#39;BoxCenterLoss&#39;)
+        self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;] = mx.metric.Loss(&#39;BoxScaleLoss&#39;)
+        self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;] = mx.metric.Loss(&#39;ClassLoss&#39;)</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.detector_prototype.Detector.Train"><code class="name flex">
+<span>def <span class="ident">Train</span></span>(<span>self, epochs, params_file)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>User function: Start training</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>epochs</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of epochs to train for</dd>
+<dt><strong><code>params_file</code></strong> :&ensp;<code>str</code></dt>
+<dd>Trained weights file name with extension as ".params"</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Train(self, epochs, params_file):
+    &#39;&#39;&#39;
+    User function: Start training
+
+    Args:
+        epochs (int): Number of epochs to train for
+        params_file (str): Trained weights file name with extension as &#34;.params&#34;
+
+    Returns:
+        None
+    &#39;&#39;&#39;
+    self.system_dict[&#34;num_epochs&#34;] = epochs;
+    self.system_dict[&#34;params_file&#34;] = params_file;
+    self.system_dict[&#34;training_metrics&#34;] = [];
+    self.system_dict[&#34;training_time&#34;] = 0.0;
+
+    if((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_1&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_2&#34;])
+        or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_3&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_4&#34;])):
+        for epoch in range(self.system_dict[&#34;num_epochs&#34;]):
+            self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;].reset()
+            self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;].reset()
+            tic = time.time()
+            btic = time.time()
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].hybridize(static_alloc=True, static_shape=True)
+            for i, batch in enumerate(self.system_dict[&#34;local&#34;][&#34;train_loader&#34;]):
+                batch_size = batch[0].shape[0]
+                data = gluon.utils.split_and_load(batch[0], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                    batch_axis=0)
+                cls_targets = gluon.utils.split_and_load(batch[1], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                    batch_axis=0)
+                box_targets = gluon.utils.split_and_load(batch[2], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                    batch_axis=0)
+                with autograd.record():
+                    cls_preds = []
+                    box_preds = []
+                    for x in data:
+                        cls_pred, box_pred, _ = self.system_dict[&#34;local&#34;][&#34;net&#34;](x)
+                        cls_preds.append(cls_pred)
+                        box_preds.append(box_pred)
+                    sum_loss, cls_loss, box_loss = self.system_dict[&#34;local&#34;][&#34;mbox_loss&#34;](
+                        cls_preds, box_preds, cls_targets, box_targets)
+                    autograd.backward(sum_loss)
+                # since we have already normalized the loss, we don&#39;t want to normalize
+                # by batch-size anymore
+                self.system_dict[&#34;local&#34;][&#34;trainer&#34;].step(batch_size)
+                self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;].update(0, [l * batch_size for l in cls_loss])
+                self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;].update(0, [l * batch_size for l in box_loss])
+                name1, loss1 = self.system_dict[&#34;local&#34;][&#34;ce_metric&#34;].get()
+                name2, loss2 = self.system_dict[&#34;local&#34;][&#34;smoothl1_metric&#34;].get()
+                if i % 20 == 0:
+                    print(&#39;[Epoch {}][Batch {}], Speed: {:.3f} samples/sec, {}={:.3f}, {}={:.3f}&#39;.format(
+                        epoch, i, batch_size/(time.time()-btic), name1, loss1, name2, loss2))
+                    tmp = {};
+                    tmp[&#34;epoch&#34;] = epoch;
+                    tmp[&#34;batch&#34;] = batch;
+                    tmp[&#34;name1&#34;] = loss1;
+                    tmp[&#34;name2&#34;] = loss2;
+                    self.system_dict[&#34;training_metrics&#34;].append(tmp);
+
+                btic = time.time()
+            self.system_dict[&#34;training_time&#34;] += time.time() - tic;
+
+        self.system_dict[&#34;local&#34;][&#34;net&#34;].save_parameters(self.system_dict[&#34;params_file&#34;])
+
+    if((self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_5&#34;]) or (self.system_dict[&#34;model_name&#34;] in self.system_dict[&#34;model_set_6&#34;])):
+        for epoch in range(self.system_dict[&#34;num_epochs&#34;]):
+            tic = time.time()
+            btic = time.time()
+            self.system_dict[&#34;local&#34;][&#34;net&#34;].hybridize(static_alloc=True, static_shape=True)
+            self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;].reset()
+            self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;].reset()
+            self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;].reset()
+            self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;].reset()
+            
+            
+            for i, batch in enumerate(self.system_dict[&#34;local&#34;][&#34;train_loader&#34;]):
+                batch_size = batch[0].shape[0]
+                data = gluon.utils.split_and_load(batch[0], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                    batch_axis=0)
+                # objectness, center_targets, scale_targets, weights, class_targets
+                fixed_targets = [gluon.utils.split_and_load(batch[it], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                    batch_axis=0) for it in range(1, 6)]
+                gt_boxes = gluon.utils.split_and_load(batch[6], ctx_list=self.system_dict[&#34;local&#34;][&#34;ctx&#34;], 
+                    batch_axis=0)
+                sum_losses = []
+                obj_losses = []
+                center_losses = []
+                scale_losses = []
+                cls_losses = []
+                with autograd.record():
+                    for ix, x in enumerate(data):
+                        obj_loss, center_loss, scale_loss, cls_loss = self.system_dict[&#34;local&#34;][&#34;net&#34;](x, gt_boxes[ix], 
+                            *[ft[ix] for ft in fixed_targets])
+                        sum_losses.append(obj_loss + center_loss + scale_loss + cls_loss)
+                        obj_losses.append(obj_loss)
+                        center_losses.append(center_loss)
+                        scale_losses.append(scale_loss)
+                        cls_losses.append(cls_loss)
+                    autograd.backward(sum_losses)
+                self.system_dict[&#34;local&#34;][&#34;trainer&#34;].step(batch_size)
+                self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;].update(0, obj_losses)
+                self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;].update(0, center_losses)
+                self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;].update(0, scale_losses)
+                self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;].update(0, cls_losses)
+
+                if i % 20 == 0:
+                    name1, loss1 = self.system_dict[&#34;local&#34;][&#34;obj_metrics&#34;].get()
+                    name2, loss2 = self.system_dict[&#34;local&#34;][&#34;center_metrics&#34;].get()
+                    name3, loss3 = self.system_dict[&#34;local&#34;][&#34;scale_metrics&#34;].get()
+                    name4, loss4 = self.system_dict[&#34;local&#34;][&#34;cls_metrics&#34;].get()
+                    tmp = {};
+                    tmp[&#34;epoch&#34;] = epoch;
+                    tmp[&#34;batch&#34;] = batch;
+                    tmp[&#34;name1&#34;] = loss1;
+                    tmp[&#34;name2&#34;] = loss2;
+                    tmp[&#34;name3&#34;] = loss3;
+                    tmp[&#34;name4&#34;] = loss4;
+                    self.system_dict[&#34;training_metrics&#34;].append(tmp);
+
+
+                    print(&#39;[Epoch {}][Batch {}], LR: {:.2E}, Speed: {:.3f} samples/sec, {}={:.3f}, {}={:.3f}, {}={:.3f}, {}={:.3f}&#39;.format(
+                epoch, i, self.system_dict[&#34;local&#34;][&#34;trainer&#34;].learning_rate, batch_size/(time.time()-btic), name1, loss1, name2, loss2, name3, 
+                loss3, name4, loss4))
+                btic = time.time()
+            self.system_dict[&#34;training_time&#34;] += time.time() - tic;
+
+        self.system_dict[&#34;local&#34;][&#34;net&#34;].save_parameters(self.system_dict[&#34;params_file&#34;])</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.detector_prototype.Detector.set_device"><code class="name flex">
+<span>def <span class="ident">set_device</span></span>(<span>self, use_gpu=True, gpu_devices=[0])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Internal function: Prepares GPU and CPU devices as per the model parameters set</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>use_gpu</code></strong> :&ensp;<code>bool</code></dt>
+<dd>If True use GPU else run on CPU</dd>
+<dt><strong><code>gpu_devices</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of GPU device Ids</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_device(self, use_gpu=True ,gpu_devices=[0]):
+    &#39;&#39;&#39;
+    Internal function: Prepares GPU and CPU devices as per the model parameters set
+
+    Args:
+        use_gpu (bool): If True use GPU else run on CPU
+        gpu_devices (list): List of GPU device Ids
+
+    Returns:
+        None
+    &#39;&#39;&#39;
+    self.system_dict[&#34;use_gpu&#34;] = use_gpu;
+    
+    if self.system_dict[&#34;use_gpu&#34;]:
+        self.system_dict[&#34;gpu_devices&#34;] = gpu_devices;
+        self.system_dict[&#34;local&#34;][&#34;ctx&#34;]= [mx.gpu(int(i)) for i in self.system_dict[&#34;gpu_devices&#34;]]
+    else:
+        self.system_dict[&#34;local&#34;][&#34;ctx&#34;] = [mx.cpu()]</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.detector_prototype.Detector.write_line"><code class="name flex">
+<span>def <span class="ident">write_line</span></span>(<span>self, img_path, im_shape, boxes, ids, idx)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Internal function: Convert labels to required gluoncv format</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>img_path</code></strong> :&ensp;<code>str</code></dt>
+<dd>Relative path to image</dd>
+<dt><strong><code>im_shape</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>Image shape in order - height, width, channel </dd>
+<dt><strong><code>boxes</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of object bounding boxes in the image</dd>
+<dt><strong><code>ids</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of label ids for object bounding boxes</dd>
+<dt><strong><code>idx</code></strong> :&ensp;<code>idx</code></dt>
+<dd>Unique image index </dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>A String containing image index, headers, labels, and image path</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_line(self, img_path, im_shape, boxes, ids, idx):
+    &#39;&#39;&#39;
+    Internal function: Convert labels to required gluoncv format
+
+    Args:
+        img_path (str): Relative path to image
+        im_shape (tuple): Image shape in order - height, width, channel 
+        boxes (list): List of object bounding boxes in the image
+        ids (list): List of label ids for object bounding boxes
+        idx (idx): Unique image index 
+
+    Returns:
+        str: A String containing image index, headers, labels, and image path
+    &#39;&#39;&#39;
+
+    h, w, c = im_shape
+    # for header, we use minimal length 2, plus width and height
+    # with A: 4, B: 5, C: width, D: height
+    A = 4
+    B = 5
+    C = w
+    D = h
+    # concat id and bboxes
+    labels = np.hstack((ids.reshape(-1, 1), boxes)).astype(&#39;float&#39;)
+    # normalized bboxes (recommanded)
+    labels[:, (1, 3)] /= float(w)
+    labels[:, (2, 4)] /= float(h)
+    # flatten
+    labels = labels.flatten().tolist()
+    str_idx = [str(idx)]
+    str_header = [str(x) for x in [A, B, C, D]]
+    str_labels = [str(x) for x in labels]
+    str_path = [img_path]
+    line = &#39;\t&#39;.join(str_idx + str_header + str_labels + str_path) + &#39;\n&#39;
+    return line</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="1_gluoncv_finetune.lib" href="index.html">1_gluoncv_finetune.lib</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="1_gluoncv_finetune.lib.detector_prototype.isnotebook" href="#1_gluoncv_finetune.lib.detector_prototype.isnotebook">isnotebook</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="1_gluoncv_finetune.lib.detector_prototype.Detector" href="#1_gluoncv_finetune.lib.detector_prototype.Detector">Detector</a></code></h4>
+<ul class="two-column">
+<li><code><a title="1_gluoncv_finetune.lib.detector_prototype.Detector.Dataset" href="#1_gluoncv_finetune.lib.detector_prototype.Detector.Dataset">Dataset</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.detector_prototype.Detector.Model" href="#1_gluoncv_finetune.lib.detector_prototype.Detector.Model">Model</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.detector_prototype.Detector.Set_Learning_Rate" href="#1_gluoncv_finetune.lib.detector_prototype.Detector.Set_Learning_Rate">Set_Learning_Rate</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.detector_prototype.Detector.Train" href="#1_gluoncv_finetune.lib.detector_prototype.Detector.Train">Train</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.detector_prototype.Detector.set_device" href="#1_gluoncv_finetune.lib.detector_prototype.Detector.set_device">set_device</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.detector_prototype.Detector.write_line" href="#1_gluoncv_finetune.lib.detector_prototype.Detector.write_line">write_line</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

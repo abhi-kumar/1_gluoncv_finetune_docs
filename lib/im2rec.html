@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>1_gluoncv_finetune.lib.im2rec API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>1_gluoncv_finetune.lib.im2rec</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# &#34;License&#34;); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+from __future__ import print_function
+import os
+import sys
+
+curr_path = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(os.path.join(curr_path, &#34;../python&#34;))
+import mxnet as mx
+import random
+import argparse
+import cv2
+import time
+import traceback
+
+try:
+    import multiprocessing
+except ImportError:
+    multiprocessing = None
+
+def list_image(root, recursive, exts):
+    &#34;&#34;&#34;Traverses the root of directory that contains images and
+    generates image list iterator.
+    Parameters
+    ----------
+    root: string
+    recursive: bool
+    exts: string
+    Returns
+    -------
+    image iterator that contains all the image under the specified path
+    &#34;&#34;&#34;
+
+    i = 0
+    if recursive:
+        cat = {}
+        for path, dirs, files in os.walk(root, followlinks=True):
+            dirs.sort()
+            files.sort()
+            for fname in files:
+                fpath = os.path.join(path, fname)
+                suffix = os.path.splitext(fname)[1].lower()
+                if os.path.isfile(fpath) and (suffix in exts):
+                    if path not in cat:
+                        cat[path] = len(cat)
+                    yield (i, os.path.relpath(fpath, root), cat[path])
+                    i += 1
+        for k, v in sorted(cat.items(), key=lambda x: x[1]):
+            print(os.path.relpath(k, root), v)
+    else:
+        for fname in sorted(os.listdir(root)):
+            fpath = os.path.join(root, fname)
+            suffix = os.path.splitext(fname)[1].lower()
+            if os.path.isfile(fpath) and (suffix in exts):
+                yield (i, os.path.relpath(fpath, root), 0)
+                i += 1
+
+def write_list(path_out, image_list):
+    &#34;&#34;&#34;Hepler function to write image list into the file.
+    The format is as below,
+    integer_image_index \t float_label_index \t path_to_image
+    Note that the blank between number and tab is only used for readability.
+    Parameters
+    ----------
+    path_out: string
+    image_list: list
+    &#34;&#34;&#34;
+    with open(path_out, &#39;w&#39;) as fout:
+        for i, item in enumerate(image_list):
+            line = &#39;%d\t&#39; % item[0]
+            for j in item[2:]:
+                line += &#39;%f\t&#39; % j
+            line += &#39;%s\n&#39; % item[1]
+            fout.write(line)
+
+def make_list(args):
+    &#34;&#34;&#34;Generates .lst file.
+    Parameters
+    ----------
+    args: object that contains all the arguments
+    &#34;&#34;&#34;
+    image_list = list_image(args.root, args.recursive, args.exts)
+    image_list = list(image_list)
+    if args.shuffle is True:
+        random.seed(100)
+        random.shuffle(image_list)
+    N = len(image_list)
+    chunk_size = (N + args.chunks - 1) // args.chunks
+    for i in range(args.chunks):
+        chunk = image_list[i * chunk_size:(i + 1) * chunk_size]
+        if args.chunks &gt; 1:
+            str_chunk = &#39;_%d&#39; % i
+        else:
+            str_chunk = &#39;&#39;
+        sep = int(chunk_size * args.train_ratio)
+        sep_test = int(chunk_size * args.test_ratio)
+        if args.train_ratio == 1.0:
+            write_list(args.prefix + str_chunk + &#39;.lst&#39;, chunk)
+        else:
+            if args.test_ratio:
+                write_list(args.prefix + str_chunk + &#39;_test.lst&#39;, chunk[:sep_test])
+            if args.train_ratio + args.test_ratio &lt; 1.0:
+                write_list(args.prefix + str_chunk + &#39;_val.lst&#39;, chunk[sep_test + sep:])
+            write_list(args.prefix + str_chunk + &#39;_train.lst&#39;, chunk[sep_test:sep_test + sep])
+
+def read_list(path_in):
+    &#34;&#34;&#34;Reads the .lst file and generates corresponding iterator.
+    Parameters
+    ----------
+    path_in: string
+    Returns
+    -------
+    item iterator that contains information in .lst file
+    &#34;&#34;&#34;
+    with open(path_in) as fin:
+        while True:
+            line = fin.readline()
+            if not line:
+                break
+            line = [i.strip() for i in line.strip().split(&#39;\t&#39;)]
+            line_len = len(line)
+            # check the data format of .lst file
+            if line_len &lt; 3:
+                print(&#39;lst should have at least has three parts, but only has %s parts for %s&#39; % (line_len, line))
+                continue
+            try:
+                item = [int(line[0])] + [line[-1]] + [float(i) for i in line[1:-1]]
+            except Exception as e:
+                print(&#39;Parsing lst met error for %s, detail: %s&#39; % (line, e))
+                continue
+            yield item
+
+def image_encode(args, i, item, q_out):
+    &#34;&#34;&#34;Reads, preprocesses, packs the image and put it back in output queue.
+    Parameters
+    ----------
+    args: object
+    i: int
+    item: list
+    q_out: queue
+    &#34;&#34;&#34;
+    fullpath = os.path.join(args.root, item[1])
+
+    if len(item) &gt; 3 and args.pack_label:
+        header = mx.recordio.IRHeader(0, item[2:], item[0], 0)
+    else:
+        header = mx.recordio.IRHeader(0, item[2], item[0], 0)
+
+    if args.pass_through:
+        try:
+            with open(fullpath, &#39;rb&#39;) as fin:
+                img = fin.read()
+            s = mx.recordio.pack(header, img)
+            q_out.put((i, s, item))
+        except Exception as e:
+            traceback.print_exc()
+            print(&#39;pack_img error:&#39;, item[1], e)
+            q_out.put((i, None, item))
+        return
+
+    try:
+        img = cv2.imread(fullpath, args.color)
+    except:
+        traceback.print_exc()
+        print(&#39;imread error trying to load file: %s &#39; % fullpath)
+        q_out.put((i, None, item))
+        return
+    if img is None:
+        print(&#39;imread read blank (None) image for file: %s&#39; % fullpath)
+        q_out.put((i, None, item))
+        return
+    if args.center_crop:
+        if img.shape[0] &gt; img.shape[1]:
+            margin = (img.shape[0] - img.shape[1]) // 2
+            img = img[margin:margin + img.shape[1], :]
+        else:
+            margin = (img.shape[1] - img.shape[0]) // 2
+            img = img[:, margin:margin + img.shape[0]]
+    if args.resize:
+        if img.shape[0] &gt; img.shape[1]:
+            newsize = (args.resize, img.shape[0] * args.resize // img.shape[1])
+        else:
+            newsize = (img.shape[1] * args.resize // img.shape[0], args.resize)
+        img = cv2.resize(img, newsize)
+
+    try:
+        s = mx.recordio.pack_img(header, img, quality=args.quality, img_fmt=args.encoding)
+        q_out.put((i, s, item))
+    except Exception as e:
+        traceback.print_exc()
+        print(&#39;pack_img error on file: %s&#39; % fullpath, e)
+        q_out.put((i, None, item))
+        return
+
+def read_worker(args, q_in, q_out):
+    &#34;&#34;&#34;Function that will be spawned to fetch the image
+    from the input queue and put it back to output queue.
+    Parameters
+    ----------
+    args: object
+    q_in: queue
+    q_out: queue
+    &#34;&#34;&#34;
+    while True:
+        deq = q_in.get()
+        if deq is None:
+            break
+        i, item = deq
+        image_encode(args, i, item, q_out)
+
+def write_worker(q_out, fname, working_dir):
+    &#34;&#34;&#34;Function that will be spawned to fetch processed image
+    from the output queue and write to the .rec file.
+    Parameters
+    ----------
+    q_out: queue
+    fname: string
+    working_dir: string
+    &#34;&#34;&#34;
+    pre_time = time.time()
+    count = 0
+    fname = os.path.basename(fname)
+    fname_rec = os.path.splitext(fname)[0] + &#39;.rec&#39;
+    fname_idx = os.path.splitext(fname)[0] + &#39;.idx&#39;
+    record = mx.recordio.MXIndexedRecordIO(os.path.join(working_dir, fname_idx),
+                                           os.path.join(working_dir, fname_rec), &#39;w&#39;)
+    buf = {}
+    more = True
+    while more:
+        deq = q_out.get()
+        if deq is not None:
+            i, s, item = deq
+            buf[i] = (s, item)
+        else:
+            more = False
+        while count in buf:
+            s, item = buf[count]
+            del buf[count]
+            if s is not None:
+                record.write_idx(item[0], s)
+
+            if count % 1000 == 0:
+                cur_time = time.time()
+                print(&#39;time:&#39;, cur_time - pre_time, &#39; count:&#39;, count)
+                pre_time = cur_time
+            count += 1
+
+def parse_args():
+    &#34;&#34;&#34;Defines all arguments.
+    Returns
+    -------
+    args object that contains all the params
+    &#34;&#34;&#34;
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description=&#39;Create an image list or \
+        make a record database by reading from an image list&#39;)
+    parser.add_argument(&#39;prefix&#39;, help=&#39;prefix of input/output lst and rec files.&#39;)
+    parser.add_argument(&#39;root&#39;, help=&#39;path to folder containing images.&#39;)
+
+    cgroup = parser.add_argument_group(&#39;Options for creating image lists&#39;)
+    cgroup.add_argument(&#39;--list&#39;, action=&#39;store_true&#39;,
+                        help=&#39;If this is set im2rec will create image list(s) by traversing root folder\
+        and output to &lt;prefix&gt;.lst.\
+        Otherwise im2rec will read &lt;prefix&gt;.lst and create a database at &lt;prefix&gt;.rec&#39;)
+    cgroup.add_argument(&#39;--exts&#39;, nargs=&#39;+&#39;, default=[&#39;.jpeg&#39;, &#39;.jpg&#39;, &#39;.png&#39;],
+                        help=&#39;list of acceptable image extensions.&#39;)
+    cgroup.add_argument(&#39;--chunks&#39;, type=int, default=1, help=&#39;number of chunks.&#39;)
+    cgroup.add_argument(&#39;--train-ratio&#39;, type=float, default=1.0,
+                        help=&#39;Ratio of images to use for training.&#39;)
+    cgroup.add_argument(&#39;--test-ratio&#39;, type=float, default=0,
+                        help=&#39;Ratio of images to use for testing.&#39;)
+    cgroup.add_argument(&#39;--recursive&#39;, action=&#39;store_true&#39;,
+                        help=&#39;If true recursively walk through subdirs and assign an unique label\
+        to images in each folder. Otherwise only include images in the root folder\
+        and give them label 0.&#39;)
+    cgroup.add_argument(&#39;--no-shuffle&#39;, dest=&#39;shuffle&#39;, action=&#39;store_false&#39;,
+                        help=&#39;If this is passed, \
+        im2rec will not randomize the image order in &lt;prefix&gt;.lst&#39;)
+    rgroup = parser.add_argument_group(&#39;Options for creating database&#39;)
+    rgroup.add_argument(&#39;--pass-through&#39;, action=&#39;store_true&#39;,
+                        help=&#39;whether to skip transformation and save image as is&#39;)
+    rgroup.add_argument(&#39;--resize&#39;, type=int, default=0,
+                        help=&#39;resize the shorter edge of image to the newsize, original images will\
+        be packed by default.&#39;)
+    rgroup.add_argument(&#39;--center-crop&#39;, action=&#39;store_true&#39;,
+                        help=&#39;specify whether to crop the center image to make it rectangular.&#39;)
+    rgroup.add_argument(&#39;--quality&#39;, type=int, default=95,
+                        help=&#39;JPEG quality for encoding, 1-100; or PNG compression for encoding, 1-9&#39;)
+    rgroup.add_argument(&#39;--num-thread&#39;, type=int, default=1,
+                        help=&#39;number of thread to use for encoding. order of images will be different\
+        from the input list if &gt;1. the input list will be modified to match the\
+        resulting order.&#39;)
+    rgroup.add_argument(&#39;--color&#39;, type=int, default=1, choices=[-1, 0, 1],
+                        help=&#39;specify the color mode of the loaded image.\
+        1: Loads a color image. Any transparency of image will be neglected. It is the default flag.\
+        0: Loads image in grayscale mode.\
+        -1:Loads image as such including alpha channel.&#39;)
+    rgroup.add_argument(&#39;--encoding&#39;, type=str, default=&#39;.jpg&#39;, choices=[&#39;.jpg&#39;, &#39;.png&#39;],
+                        help=&#39;specify the encoding of the images.&#39;)
+    rgroup.add_argument(&#39;--pack-label&#39;, action=&#39;store_true&#39;,
+        help=&#39;Whether to also pack multi dimensional label in the record file&#39;)
+    args = parser.parse_args()
+    args.prefix = os.path.abspath(args.prefix)
+    args.root = os.path.abspath(args.root)
+    return args
+
+if __name__ == &#39;__main__&#39;:
+    args = parse_args()
+    # if the &#39;--list&#39; is used, it generates .lst file
+    if args.list:
+        make_list(args)
+    # otherwise read .lst file to generates .rec file
+    else:
+        if os.path.isdir(args.prefix):
+            working_dir = args.prefix
+        else:
+            working_dir = os.path.dirname(args.prefix)
+        files = [os.path.join(working_dir, fname) for fname in os.listdir(working_dir)
+                    if os.path.isfile(os.path.join(working_dir, fname))]
+        count = 0
+        for fname in files:
+            if fname.startswith(args.prefix) and fname.endswith(&#39;.lst&#39;):
+                print(&#39;Creating .rec file from&#39;, fname, &#39;in&#39;, working_dir)
+                count += 1
+                image_list = read_list(fname)
+                # -- write_record -- #
+                if args.num_thread &gt; 1 and multiprocessing is not None:
+                    q_in = [multiprocessing.Queue(1024) for i in range(args.num_thread)]
+                    q_out = multiprocessing.Queue(1024)
+                    # define the process
+                    read_process = [multiprocessing.Process(target=read_worker, args=(args, q_in[i], q_out)) \
+                                    for i in range(args.num_thread)]
+                    # process images with num_thread process
+                    for p in read_process:
+                        p.start()
+                    # only use one process to write .rec to avoid race-condtion
+                    write_process = multiprocessing.Process(target=write_worker, args=(q_out, fname, working_dir))
+                    write_process.start()
+                    # put the image list into input queue
+                    for i, item in enumerate(image_list):
+                        q_in[i % len(q_in)].put((i, item))
+                    for q in q_in:
+                        q.put(None)
+                    for p in read_process:
+                        p.join()
+
+                    q_out.put(None)
+                    write_process.join()
+                else:
+                    print(&#39;multiprocessing not available, fall back to single threaded encoding&#39;)
+                    try:
+                        import Queue as queue
+                    except ImportError:
+                        import queue
+                    q_out = queue.Queue()
+                    fname = os.path.basename(fname)
+                    fname_rec = os.path.splitext(fname)[0] + &#39;.rec&#39;
+                    fname_idx = os.path.splitext(fname)[0] + &#39;.idx&#39;
+                    record = mx.recordio.MXIndexedRecordIO(os.path.join(working_dir, fname_idx),
+                                                           os.path.join(working_dir, fname_rec), &#39;w&#39;)
+                    cnt = 0
+                    pre_time = time.time()
+                    for i, item in enumerate(image_list):
+                        image_encode(args, i, item, q_out)
+                        if q_out.empty():
+                            continue
+                        _, s, _ = q_out.get()
+                        record.write_idx(item[0], s)
+                        if cnt % 1000 == 0:
+                            cur_time = time.time()
+                            print(&#39;time:&#39;, cur_time - pre_time, &#39; count:&#39;, cnt)
+                            pre_time = cur_time
+                        cnt += 1
+        if not count:
+            print(&#39;Did not find and list file with prefix %s&#39;%args.prefix)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="1_gluoncv_finetune.lib.im2rec.image_encode"><code class="name flex">
+<span>def <span class="ident">image_encode</span></span>(<span>args, i, item, q_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Reads, preprocesses, packs the image and put it back in output queue.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>args</code></strong> :&ensp;<code>object</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>i</code></strong> :&ensp;<code>int</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>item</code></strong> :&ensp;<code>list</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>q_out</code></strong> :&ensp;<code>queue</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def image_encode(args, i, item, q_out):
+    &#34;&#34;&#34;Reads, preprocesses, packs the image and put it back in output queue.
+    Parameters
+    ----------
+    args: object
+    i: int
+    item: list
+    q_out: queue
+    &#34;&#34;&#34;
+    fullpath = os.path.join(args.root, item[1])
+
+    if len(item) &gt; 3 and args.pack_label:
+        header = mx.recordio.IRHeader(0, item[2:], item[0], 0)
+    else:
+        header = mx.recordio.IRHeader(0, item[2], item[0], 0)
+
+    if args.pass_through:
+        try:
+            with open(fullpath, &#39;rb&#39;) as fin:
+                img = fin.read()
+            s = mx.recordio.pack(header, img)
+            q_out.put((i, s, item))
+        except Exception as e:
+            traceback.print_exc()
+            print(&#39;pack_img error:&#39;, item[1], e)
+            q_out.put((i, None, item))
+        return
+
+    try:
+        img = cv2.imread(fullpath, args.color)
+    except:
+        traceback.print_exc()
+        print(&#39;imread error trying to load file: %s &#39; % fullpath)
+        q_out.put((i, None, item))
+        return
+    if img is None:
+        print(&#39;imread read blank (None) image for file: %s&#39; % fullpath)
+        q_out.put((i, None, item))
+        return
+    if args.center_crop:
+        if img.shape[0] &gt; img.shape[1]:
+            margin = (img.shape[0] - img.shape[1]) // 2
+            img = img[margin:margin + img.shape[1], :]
+        else:
+            margin = (img.shape[1] - img.shape[0]) // 2
+            img = img[:, margin:margin + img.shape[0]]
+    if args.resize:
+        if img.shape[0] &gt; img.shape[1]:
+            newsize = (args.resize, img.shape[0] * args.resize // img.shape[1])
+        else:
+            newsize = (img.shape[1] * args.resize // img.shape[0], args.resize)
+        img = cv2.resize(img, newsize)
+
+    try:
+        s = mx.recordio.pack_img(header, img, quality=args.quality, img_fmt=args.encoding)
+        q_out.put((i, s, item))
+    except Exception as e:
+        traceback.print_exc()
+        print(&#39;pack_img error on file: %s&#39; % fullpath, e)
+        q_out.put((i, None, item))
+        return</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.im2rec.list_image"><code class="name flex">
+<span>def <span class="ident">list_image</span></span>(<span>root, recursive, exts)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Traverses the root of directory that contains images and
+generates image list iterator.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>root</code></strong> :&ensp;<code>string</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>recursive</code></strong> :&ensp;<code>bool</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>exts</code></strong> :&ensp;<code>string</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>image iterator that contains all the image under the specified path</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def list_image(root, recursive, exts):
+    &#34;&#34;&#34;Traverses the root of directory that contains images and
+    generates image list iterator.
+    Parameters
+    ----------
+    root: string
+    recursive: bool
+    exts: string
+    Returns
+    -------
+    image iterator that contains all the image under the specified path
+    &#34;&#34;&#34;
+
+    i = 0
+    if recursive:
+        cat = {}
+        for path, dirs, files in os.walk(root, followlinks=True):
+            dirs.sort()
+            files.sort()
+            for fname in files:
+                fpath = os.path.join(path, fname)
+                suffix = os.path.splitext(fname)[1].lower()
+                if os.path.isfile(fpath) and (suffix in exts):
+                    if path not in cat:
+                        cat[path] = len(cat)
+                    yield (i, os.path.relpath(fpath, root), cat[path])
+                    i += 1
+        for k, v in sorted(cat.items(), key=lambda x: x[1]):
+            print(os.path.relpath(k, root), v)
+    else:
+        for fname in sorted(os.listdir(root)):
+            fpath = os.path.join(root, fname)
+            suffix = os.path.splitext(fname)[1].lower()
+            if os.path.isfile(fpath) and (suffix in exts):
+                yield (i, os.path.relpath(fpath, root), 0)
+                i += 1</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.im2rec.make_list"><code class="name flex">
+<span>def <span class="ident">make_list</span></span>(<span>args)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generates .lst file.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>args</code></strong> :&ensp;<code>object that contains all the arguments</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_list(args):
+    &#34;&#34;&#34;Generates .lst file.
+    Parameters
+    ----------
+    args: object that contains all the arguments
+    &#34;&#34;&#34;
+    image_list = list_image(args.root, args.recursive, args.exts)
+    image_list = list(image_list)
+    if args.shuffle is True:
+        random.seed(100)
+        random.shuffle(image_list)
+    N = len(image_list)
+    chunk_size = (N + args.chunks - 1) // args.chunks
+    for i in range(args.chunks):
+        chunk = image_list[i * chunk_size:(i + 1) * chunk_size]
+        if args.chunks &gt; 1:
+            str_chunk = &#39;_%d&#39; % i
+        else:
+            str_chunk = &#39;&#39;
+        sep = int(chunk_size * args.train_ratio)
+        sep_test = int(chunk_size * args.test_ratio)
+        if args.train_ratio == 1.0:
+            write_list(args.prefix + str_chunk + &#39;.lst&#39;, chunk)
+        else:
+            if args.test_ratio:
+                write_list(args.prefix + str_chunk + &#39;_test.lst&#39;, chunk[:sep_test])
+            if args.train_ratio + args.test_ratio &lt; 1.0:
+                write_list(args.prefix + str_chunk + &#39;_val.lst&#39;, chunk[sep_test + sep:])
+            write_list(args.prefix + str_chunk + &#39;_train.lst&#39;, chunk[sep_test:sep_test + sep])</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.im2rec.parse_args"><code class="name flex">
+<span>def <span class="ident">parse_args</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Defines all arguments.
+Returns</p>
+<hr>
+<dl>
+<dt><code>args object that contains all the params</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse_args():
+    &#34;&#34;&#34;Defines all arguments.
+    Returns
+    -------
+    args object that contains all the params
+    &#34;&#34;&#34;
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+        description=&#39;Create an image list or \
+        make a record database by reading from an image list&#39;)
+    parser.add_argument(&#39;prefix&#39;, help=&#39;prefix of input/output lst and rec files.&#39;)
+    parser.add_argument(&#39;root&#39;, help=&#39;path to folder containing images.&#39;)
+
+    cgroup = parser.add_argument_group(&#39;Options for creating image lists&#39;)
+    cgroup.add_argument(&#39;--list&#39;, action=&#39;store_true&#39;,
+                        help=&#39;If this is set im2rec will create image list(s) by traversing root folder\
+        and output to &lt;prefix&gt;.lst.\
+        Otherwise im2rec will read &lt;prefix&gt;.lst and create a database at &lt;prefix&gt;.rec&#39;)
+    cgroup.add_argument(&#39;--exts&#39;, nargs=&#39;+&#39;, default=[&#39;.jpeg&#39;, &#39;.jpg&#39;, &#39;.png&#39;],
+                        help=&#39;list of acceptable image extensions.&#39;)
+    cgroup.add_argument(&#39;--chunks&#39;, type=int, default=1, help=&#39;number of chunks.&#39;)
+    cgroup.add_argument(&#39;--train-ratio&#39;, type=float, default=1.0,
+                        help=&#39;Ratio of images to use for training.&#39;)
+    cgroup.add_argument(&#39;--test-ratio&#39;, type=float, default=0,
+                        help=&#39;Ratio of images to use for testing.&#39;)
+    cgroup.add_argument(&#39;--recursive&#39;, action=&#39;store_true&#39;,
+                        help=&#39;If true recursively walk through subdirs and assign an unique label\
+        to images in each folder. Otherwise only include images in the root folder\
+        and give them label 0.&#39;)
+    cgroup.add_argument(&#39;--no-shuffle&#39;, dest=&#39;shuffle&#39;, action=&#39;store_false&#39;,
+                        help=&#39;If this is passed, \
+        im2rec will not randomize the image order in &lt;prefix&gt;.lst&#39;)
+    rgroup = parser.add_argument_group(&#39;Options for creating database&#39;)
+    rgroup.add_argument(&#39;--pass-through&#39;, action=&#39;store_true&#39;,
+                        help=&#39;whether to skip transformation and save image as is&#39;)
+    rgroup.add_argument(&#39;--resize&#39;, type=int, default=0,
+                        help=&#39;resize the shorter edge of image to the newsize, original images will\
+        be packed by default.&#39;)
+    rgroup.add_argument(&#39;--center-crop&#39;, action=&#39;store_true&#39;,
+                        help=&#39;specify whether to crop the center image to make it rectangular.&#39;)
+    rgroup.add_argument(&#39;--quality&#39;, type=int, default=95,
+                        help=&#39;JPEG quality for encoding, 1-100; or PNG compression for encoding, 1-9&#39;)
+    rgroup.add_argument(&#39;--num-thread&#39;, type=int, default=1,
+                        help=&#39;number of thread to use for encoding. order of images will be different\
+        from the input list if &gt;1. the input list will be modified to match the\
+        resulting order.&#39;)
+    rgroup.add_argument(&#39;--color&#39;, type=int, default=1, choices=[-1, 0, 1],
+                        help=&#39;specify the color mode of the loaded image.\
+        1: Loads a color image. Any transparency of image will be neglected. It is the default flag.\
+        0: Loads image in grayscale mode.\
+        -1:Loads image as such including alpha channel.&#39;)
+    rgroup.add_argument(&#39;--encoding&#39;, type=str, default=&#39;.jpg&#39;, choices=[&#39;.jpg&#39;, &#39;.png&#39;],
+                        help=&#39;specify the encoding of the images.&#39;)
+    rgroup.add_argument(&#39;--pack-label&#39;, action=&#39;store_true&#39;,
+        help=&#39;Whether to also pack multi dimensional label in the record file&#39;)
+    args = parser.parse_args()
+    args.prefix = os.path.abspath(args.prefix)
+    args.root = os.path.abspath(args.root)
+    return args</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.im2rec.read_list"><code class="name flex">
+<span>def <span class="ident">read_list</span></span>(<span>path_in)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Reads the .lst file and generates corresponding iterator.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>path_in</code></strong> :&ensp;<code>string</code></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>item iterator that contains information in .lst file</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_list(path_in):
+    &#34;&#34;&#34;Reads the .lst file and generates corresponding iterator.
+    Parameters
+    ----------
+    path_in: string
+    Returns
+    -------
+    item iterator that contains information in .lst file
+    &#34;&#34;&#34;
+    with open(path_in) as fin:
+        while True:
+            line = fin.readline()
+            if not line:
+                break
+            line = [i.strip() for i in line.strip().split(&#39;\t&#39;)]
+            line_len = len(line)
+            # check the data format of .lst file
+            if line_len &lt; 3:
+                print(&#39;lst should have at least has three parts, but only has %s parts for %s&#39; % (line_len, line))
+                continue
+            try:
+                item = [int(line[0])] + [line[-1]] + [float(i) for i in line[1:-1]]
+            except Exception as e:
+                print(&#39;Parsing lst met error for %s, detail: %s&#39; % (line, e))
+                continue
+            yield item</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.im2rec.read_worker"><code class="name flex">
+<span>def <span class="ident">read_worker</span></span>(<span>args, q_in, q_out)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function that will be spawned to fetch the image
+from the input queue and put it back to output queue.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>args</code></strong> :&ensp;<code>object</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>q_in</code></strong> :&ensp;<code>queue</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>q_out</code></strong> :&ensp;<code>queue</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def read_worker(args, q_in, q_out):
+    &#34;&#34;&#34;Function that will be spawned to fetch the image
+    from the input queue and put it back to output queue.
+    Parameters
+    ----------
+    args: object
+    q_in: queue
+    q_out: queue
+    &#34;&#34;&#34;
+    while True:
+        deq = q_in.get()
+        if deq is None:
+            break
+        i, item = deq
+        image_encode(args, i, item, q_out)</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.im2rec.write_list"><code class="name flex">
+<span>def <span class="ident">write_list</span></span>(<span>path_out, image_list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Hepler function to write image list into the file.
+The format is as below,
+integer_image_index
+float_label_index
+path_to_image
+Note that the blank between number and tab is only used for readability.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>path_out</code></strong> :&ensp;<code>string</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>image_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_list(path_out, image_list):
+    &#34;&#34;&#34;Hepler function to write image list into the file.
+    The format is as below,
+    integer_image_index \t float_label_index \t path_to_image
+    Note that the blank between number and tab is only used for readability.
+    Parameters
+    ----------
+    path_out: string
+    image_list: list
+    &#34;&#34;&#34;
+    with open(path_out, &#39;w&#39;) as fout:
+        for i, item in enumerate(image_list):
+            line = &#39;%d\t&#39; % item[0]
+            for j in item[2:]:
+                line += &#39;%f\t&#39; % j
+            line += &#39;%s\n&#39; % item[1]
+            fout.write(line)</code></pre>
+</details>
+</dd>
+<dt id="1_gluoncv_finetune.lib.im2rec.write_worker"><code class="name flex">
+<span>def <span class="ident">write_worker</span></span>(<span>q_out, fname, working_dir)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Function that will be spawned to fetch processed image
+from the output queue and write to the .rec file.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>q_out</code></strong> :&ensp;<code>queue</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>fname</code></strong> :&ensp;<code>string</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>working_dir</code></strong> :&ensp;<code>string</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def write_worker(q_out, fname, working_dir):
+    &#34;&#34;&#34;Function that will be spawned to fetch processed image
+    from the output queue and write to the .rec file.
+    Parameters
+    ----------
+    q_out: queue
+    fname: string
+    working_dir: string
+    &#34;&#34;&#34;
+    pre_time = time.time()
+    count = 0
+    fname = os.path.basename(fname)
+    fname_rec = os.path.splitext(fname)[0] + &#39;.rec&#39;
+    fname_idx = os.path.splitext(fname)[0] + &#39;.idx&#39;
+    record = mx.recordio.MXIndexedRecordIO(os.path.join(working_dir, fname_idx),
+                                           os.path.join(working_dir, fname_rec), &#39;w&#39;)
+    buf = {}
+    more = True
+    while more:
+        deq = q_out.get()
+        if deq is not None:
+            i, s, item = deq
+            buf[i] = (s, item)
+        else:
+            more = False
+        while count in buf:
+            s, item = buf[count]
+            del buf[count]
+            if s is not None:
+                record.write_idx(item[0], s)
+
+            if count % 1000 == 0:
+                cur_time = time.time()
+                print(&#39;time:&#39;, cur_time - pre_time, &#39; count:&#39;, count)
+                pre_time = cur_time
+            count += 1</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="1_gluoncv_finetune.lib" href="index.html">1_gluoncv_finetune.lib</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="two-column">
+<li><code><a title="1_gluoncv_finetune.lib.im2rec.image_encode" href="#1_gluoncv_finetune.lib.im2rec.image_encode">image_encode</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.im2rec.list_image" href="#1_gluoncv_finetune.lib.im2rec.list_image">list_image</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.im2rec.make_list" href="#1_gluoncv_finetune.lib.im2rec.make_list">make_list</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.im2rec.parse_args" href="#1_gluoncv_finetune.lib.im2rec.parse_args">parse_args</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.im2rec.read_list" href="#1_gluoncv_finetune.lib.im2rec.read_list">read_list</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.im2rec.read_worker" href="#1_gluoncv_finetune.lib.im2rec.read_worker">read_worker</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.im2rec.write_list" href="#1_gluoncv_finetune.lib.im2rec.write_list">write_list</a></code></li>
+<li><code><a title="1_gluoncv_finetune.lib.im2rec.write_worker" href="#1_gluoncv_finetune.lib.im2rec.write_worker">write_worker</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
